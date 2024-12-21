@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MarkdownWidget</string>
+    <string name="loading">Loading…</string>
+    <string name="enter_markdown_file_path">Enter markdown file path</string>
+    <string name="add_widget">Add Widget</string>
+    <string name="browse_for_file">Browse For File</string>
+</resources>
