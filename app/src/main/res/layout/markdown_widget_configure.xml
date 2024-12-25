@@ -5,15 +5,15 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_markdown_file_path"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:focusable="false"
-        android:clickable="false" />
+<!--    <EditText-->
+<!--        android:id="@+id/editText"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="@string/enter_markdown_file_path"-->
+<!--        android:minHeight="48dp"-->
+<!--        android:padding="12dp"-->
+<!--        android:focusable="false"-->
+<!--        android:clickable="false" />-->
 
     <Button
         android:id="@+id/browse_button"
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:text="@string/browse_for_file" />
 
-    <Button
-        android:id="@+id/add_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_widget" />
+<!--    <Button-->
+<!--        android:id="@+id/add_button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/add_widget" />-->
 </LinearLayout>

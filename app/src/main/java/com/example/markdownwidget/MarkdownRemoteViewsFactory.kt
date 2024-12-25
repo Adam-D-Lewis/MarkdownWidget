@@ -15,7 +15,7 @@ class MarkdownRemoteViewsFactory(private val context: Context, private val appWi
 
     override fun onDataSetChanged() {
         val prefs = context.getSharedPreferences(MarkdownWidgetConfigureActivity.PREFS_NAME, 0)
-        markdownContent = prefs.getString(MarkdownWidgetConfigureActivity.PREF_PREFIX_KEY + appWidgetId, "# Hello, Markdown!\nThis is a **markdown** text.") ?: ""
+        markdownContent = prefs.getString(MarkdownWidgetConfigureActivity.PREF_PREFIX_KEY + appWidgetId, "Idk.  Some error occurred.") ?: ""
     }
 
     override fun onDestroy() {}

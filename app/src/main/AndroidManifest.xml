@@ -55,7 +55,7 @@
                 android:resource="@xml/widget_info" />
         </receiver>
         <!-- RemoteViewsService -->
-        <service android:name=".MarkdownWidgetService"
+        <service android:name=".MdRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
