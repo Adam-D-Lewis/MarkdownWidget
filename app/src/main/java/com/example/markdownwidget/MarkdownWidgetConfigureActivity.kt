@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -21,14 +20,6 @@ class MarkdownWidgetConfigureActivity : Activity() {
         setResult(RESULT_CANCELED)
         setContentView(R.layout.markdown_widget_configure)
 
-        findViewById<Button>(R.id.browse_button).setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "text/markdown"
-                addCategory(Intent.CATEGORY_OPENABLE)
-            }
-            startActivityForResult(Intent.createChooser(intent, "Select a Markdown file"), FILE_SELECT_CODE)
-        }
-
         val intent = intent
         val extras = intent.extras
         if (extras != null) {
@@ -37,7 +28,14 @@ class MarkdownWidgetConfigureActivity : Activity() {
 
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish()
+            return
         }
+
+        val fileIntent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "text/markdown"
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        startActivityForResult(Intent.createChooser(fileIntent, "Select a Markdown file"), FILE_SELECT_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -62,6 +60,8 @@ class MarkdownWidgetConfigureActivity : Activity() {
                 setResult(RESULT_OK, resultValue)
                 finish()
             }
+        } else {
+            finish()
         }
     }
 
