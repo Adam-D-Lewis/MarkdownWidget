@@ -31,9 +31,10 @@ class MarkdownWidgetConfigureActivity : Activity() {
             return
         }
 
-        val fileIntent = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val fileIntent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = "text/markdown"
             addCategory(Intent.CATEGORY_OPENABLE)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         }
         startActivityForResult(Intent.createChooser(fileIntent, "Select a Markdown file"), FILE_SELECT_CODE)
     }
@@ -43,13 +44,15 @@ class MarkdownWidgetConfigureActivity : Activity() {
         if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK) {
             val uri: Uri? = data?.data
             uri?.let {
-                val contentResolver = contentResolver
+                contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 val inputStream = contentResolver.openInputStream(it)
                 val reader = BufferedReader(InputStreamReader(inputStream))
                 val content = reader.use { it.readText() }
 
                 val prefs = getSharedPreferences(PREFS_NAME, 0).edit()
                 prefs.putString(PREF_PREFIX_KEY + appWidgetId, content)
+                prefs.putString(PREF_URI_KEY + appWidgetId, it.toString())
                 prefs.apply()
 
                 val appWidgetManager = AppWidgetManager.getInstance(this)
@@ -68,10 +71,16 @@ class MarkdownWidgetConfigureActivity : Activity() {
     companion object {
         const val PREFS_NAME = "com.example.markdownwidget.MarkdownWidget"
         const val PREF_PREFIX_KEY = "appwidget_"
+        const val PREF_URI_KEY = "appwidget_uri_"
 
         fun loadMarkdownFilePath(context: Context, appWidgetId: Int): String? {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0)
             return prefs.getString(PREF_PREFIX_KEY + appWidgetId, null)
+        }
+
+        fun loadMarkdownFileUri(context: Context, appWidgetId: Int): String? {
+            val prefs = context.getSharedPreferences(PREFS_NAME, 0)
+            return prefs.getString(PREF_URI_KEY + appWidgetId, null)
         }
     }
 }
