@@ -72,6 +72,29 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
             }
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
             views.setRemoteAdapter(R.id.widget_list, intent)
+
+            // Retrieve the file URI from shared preferences
+            val prefs = context.getSharedPreferences(MarkdownWidgetConfigureActivity.PREFS_NAME, 0)
+            val fileUriString = prefs.getString(MarkdownWidgetConfigureActivity.PREF_URI_KEY + appWidgetId, null)
+            if (fileUriString != null) {
+                val fileUri = Uri.parse(fileUriString)
+                val viewIntent = Intent(Intent.ACTION_VIEW).apply {
+                    data = fileUri
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                }
+
+                // Check if there is an app to handle the intent
+                if (viewIntent.resolveActivity(context.packageManager) != null) {
+                    val pendingIntent = PendingIntent.getActivity(context, appWidgetId, viewIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent)
+                } else {
+                    Log.d("MarkdownWidgetProvider", "No app available to handle ACTION_VIEW for URI: $fileUri")
+                    val chooserIntent = Intent.createChooser(viewIntent, "Choose an app to open the file")
+                    val pendingIntent = PendingIntent.getActivity(context, appWidgetId, chooserIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent)
+                }
+            }
+
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
