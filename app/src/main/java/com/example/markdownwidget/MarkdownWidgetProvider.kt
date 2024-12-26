@@ -67,6 +67,7 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
     companion object {
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val intent = Intent(context, MdRemoteViewsService::class.java).apply {
+                data = Uri.parse("content://com.example.markdownwidget/$appWidgetId")
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             }
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
