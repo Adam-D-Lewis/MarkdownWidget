@@ -42,8 +42,8 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
         // Set a new repeating alarm
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(1),
-            TimeUnit.SECONDS.toMillis(1),
+            System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1),
+            TimeUnit.MINUTES.toMillis(1),
             pendingIntent
         )
 
