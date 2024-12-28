@@ -2,12 +2,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/widget_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>

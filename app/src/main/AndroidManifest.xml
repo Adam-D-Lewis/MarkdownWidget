@@ -32,12 +32,6 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-<!--        <receiver android:name=".MarkdownWidgetProvider"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
-<!--            </intent-filter>-->
-
         <receiver
             android:name=".MarkdownWidgetProvider"
             android:exported="true"

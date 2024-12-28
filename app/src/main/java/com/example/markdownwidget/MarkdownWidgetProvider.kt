@@ -16,6 +16,7 @@ import android.app.PendingIntent
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import java.util.concurrent.TimeUnit
+import android.widget.Toast
 
 class MarkdownWidgetProvider : AppWidgetProvider() {
 
@@ -29,9 +30,6 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
 
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
-//            if (checkFileUpdates(context, appWidgetId)) {
-//                updateAppWidget(context, appWidgetManager, appWidgetId)
-//            }
         }
 
         // Schedule the alarm to periodically check for updates
@@ -71,6 +69,23 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
             }
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
             views.setRemoteAdapter(R.id.widget_list, intent)
+
+            // Create a template for item clicks
+            val itemClickIntent = Intent(context, UpdateReceiver::class.java).apply {
+                action = "com.example.markdownwidget.ACTION_UPDATE_WIDGET"
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            }
+            val itemClickPendingIntent = PendingIntent.getBroadcast(
+                context,
+                appWidgetId,
+                itemClickIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            // Set up click handler for both the layout and list items
+            views.setPendingIntentTemplate(R.id.widget_list, itemClickPendingIntent)
+            views.setOnClickPendingIntent(R.id.widget_layout, itemClickPendingIntent)
+
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
@@ -116,23 +131,30 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
     }
 }
 
-class MdRemoteViewsService : RemoteViewsService() {
-    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        val appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-        return MarkdownRemoteViewsFactory(applicationContext, appWidgetId)
-    }
-}
-
 class UpdateReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("UpdateReceiver", "Alarm received")
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context, MarkdownWidgetProvider::class.java))
+
         for (appWidgetId in appWidgetIds) {
             val fileUpdated = MarkdownWidgetProvider.checkFileUpdates(context, appWidgetId)
             if (fileUpdated) {
                 MarkdownWidgetProvider.updateAppWidget(context, appWidgetManager, appWidgetId)
+                // display toast notification only if user triggered the update
+                if (intent.action == "com.example.markdownwidget.ACTION_UPDATE_WIDGET") {
+                    Toast.makeText(context, "File Sync Successful", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+}
+class MdRemoteViewsService : RemoteViewsService() {
+    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
+        val appWidgetId = intent.getIntExtra(
+            AppWidgetManager.EXTRA_APPWIDGET_ID,
+            AppWidgetManager.INVALID_APPWIDGET_ID
+        )
+        return MarkdownRemoteViewsFactory(applicationContext, appWidgetId)
     }
 }
