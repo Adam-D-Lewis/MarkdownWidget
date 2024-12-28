@@ -1,4 +1,4 @@
-package com.example.markdownwidget
+package com.adamdlewis.markdownwidget
 
 import android.appwidget.AppWidgetProvider
 import android.appwidget.AppWidgetManager
@@ -17,6 +17,7 @@ import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import java.util.concurrent.TimeUnit
 import android.widget.Toast
+import com.example.markdownwidget.R
 
 class MarkdownWidgetProvider : AppWidgetProvider() {
 

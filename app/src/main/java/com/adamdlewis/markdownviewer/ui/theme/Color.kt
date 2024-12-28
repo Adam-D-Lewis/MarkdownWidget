@@ -1,4 +1,4 @@
-package com.example.markdownwidget.ui.theme
+package com.adamdlewis.markdownwidget.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
