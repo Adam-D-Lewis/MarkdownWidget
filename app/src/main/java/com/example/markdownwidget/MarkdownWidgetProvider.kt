@@ -42,12 +42,12 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
         // Set a new repeating alarm
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1),
+            System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(1),
             TimeUnit.MINUTES.toMillis(1),
             pendingIntent
         )
 
-        Log.d("MarkdownWidgetProvider", "Alarm set to trigger every second")
+        Log.d("MarkdownWidgetProvider", "Alarm set to trigger periodically")
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
@@ -133,7 +133,7 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
 
 class UpdateReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d("UpdateReceiver", "Alarm received")
+        Log.d("UpdateReceiver", "Update received with action: ${intent.action}")
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context, MarkdownWidgetProvider::class.java))
 
@@ -143,12 +143,18 @@ class UpdateReceiver : BroadcastReceiver() {
                 MarkdownWidgetProvider.updateAppWidget(context, appWidgetManager, appWidgetId)
                 // display toast notification only if user triggered the update
                 if (intent.action == "com.example.markdownwidget.ACTION_UPDATE_WIDGET") {
-                    Toast.makeText(context, "File Sync Successful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Content refreshed", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // display toast notification only if user triggered the update
+                if (intent.action == "com.example.markdownwidget.ACTION_UPDATE_WIDGET") {
+                    Toast.makeText(context, "Already up to date", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 }
+
 class MdRemoteViewsService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         val appWidgetId = intent.getIntExtra(
