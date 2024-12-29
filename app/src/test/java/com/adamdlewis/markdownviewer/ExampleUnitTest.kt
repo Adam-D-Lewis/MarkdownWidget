@@ -1,4 +1,4 @@
-package com.example.markdownwidget
+package com.adamdlewis.markdownviewer
 
 import org.junit.Test
 

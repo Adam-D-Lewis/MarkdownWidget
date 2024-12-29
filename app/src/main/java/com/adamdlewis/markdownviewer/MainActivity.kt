@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget
+package com.adamdlewis.markdownviewer
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.adamdlewis.markdownwidget.ui.theme.MarkdownWidgetTheme
+import com.adamdlewis.markdownviewer.ui.theme.MarkdownWidgetTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

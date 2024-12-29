@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget.ui.theme
+package com.adamdlewis.markdownviewer.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget
+package com.adamdlewis.markdownviewer
 
 import android.appwidget.AppWidgetProvider
 import android.appwidget.AppWidgetManager
@@ -17,7 +17,7 @@ import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import java.util.concurrent.TimeUnit
 import android.widget.Toast
-import com.example.markdownwidget.R
+import com.adamdlewis.markdownviewer.R
 
 class MarkdownWidgetProvider : AppWidgetProvider() {
 
@@ -65,7 +65,7 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
     companion object {
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val intent = Intent(context, MdRemoteViewsService::class.java).apply {
-                data = Uri.parse("content://com.example.markdownwidget/$appWidgetId")
+                data = Uri.parse("content://com.adamdlewis.markdownviewer/$appWidgetId")
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             }
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
@@ -73,7 +73,7 @@ class MarkdownWidgetProvider : AppWidgetProvider() {
 
             // Create a template for item clicks
             val itemClickIntent = Intent(context, UpdateReceiver::class.java).apply {
-                action = "com.example.markdownwidget.ACTION_UPDATE_WIDGET"
+                action = "com.adamdlewis.markdownviewer.ACTION_UPDATE_WIDGET"
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             }
             val itemClickPendingIntent = PendingIntent.getBroadcast(
@@ -143,12 +143,12 @@ class UpdateReceiver : BroadcastReceiver() {
             if (fileUpdated) {
                 MarkdownWidgetProvider.updateAppWidget(context, appWidgetManager, appWidgetId)
                 // display toast notification only if user triggered the update
-                if (intent.action == "com.example.markdownwidget.ACTION_UPDATE_WIDGET") {
+                if (intent.action == "com.adamdlewis.markdownviewer.ACTION_UPDATE_WIDGET") {
                     Toast.makeText(context, "Content refreshed", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // display toast notification only if user triggered the update
-                if (intent.action == "com.example.markdownwidget.ACTION_UPDATE_WIDGET") {
+                if (intent.action == "com.adamdlewis.markdownviewer.ACTION_UPDATE_WIDGET") {
                     Toast.makeText(context, "Already up to date", Toast.LENGTH_SHORT).show()
                 }
             }

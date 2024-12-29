@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget
+package com.adamdlewis.markdownviewer
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.text.Html
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import android.net.Uri
-import com.example.markdownwidget.R
+import com.adamdlewis.markdownviewer.R
 
 class MarkdownRemoteViewsFactory(
     private val context: Context,

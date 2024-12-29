@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget.ui.theme
+package com.adamdlewis.markdownviewer.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

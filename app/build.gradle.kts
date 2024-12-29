@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.markdownwidget"
+    namespace = "com.adamdlewis.markdownviewer"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.markdownwidget"
+        applicationId = "com.adamdlewis.markdownviewer"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

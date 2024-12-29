@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget.ui.theme
+package com.adamdlewis.markdownviewer.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

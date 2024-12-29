@@ -1,4 +1,4 @@
-package com.adamdlewis.markdownwidget
+package com.adamdlewis.markdownviewer
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.example.markdownwidget.R
+import com.adamdlewis.markdownviewer.R
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
@@ -69,7 +69,7 @@ class MarkdownWidgetConfigureActivity : Activity() {
     }
 
     companion object {
-        const val PREFS_NAME = "com.example.markdownwidget.MarkdownWidget"
+        const val PREFS_NAME = "com.adamdlewis.markdownviewer.MarkdownWidget"
         const val PREF_PREFIX_KEY = "appwidget_"
         const val PREF_URI_KEY = "appwidget_uri_"
 

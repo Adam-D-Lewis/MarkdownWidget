@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.markdownwidget">
+    package="com.adamdlewis.markdownviewer">
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name="com.adamdlewis.markdownwidget.MainActivity"
+            android:name="com.adamdlewis.markdownviewer.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MarkdownWidget">
             <intent-filter>
@@ -26,14 +26,14 @@
         </activity>
 
         <!-- Widget Provider -->
-        <activity android:name="com.adamdlewis.markdownwidget.MarkdownWidgetConfigureActivity"
+        <activity android:name="com.adamdlewis.markdownviewer.MarkdownWidgetConfigureActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
         <receiver
-            android:name="com.adamdlewis.markdownwidget.MarkdownWidgetProvider"
+            android:name="com.adamdlewis.markdownviewer.MarkdownWidgetProvider"
             android:exported="true"
             android:label="Markdown Widget"
             android:icon="@mipmap/markdown_viewer_icon">
@@ -49,9 +49,9 @@
                 android:resource="@xml/widget_info" />
         </receiver>
         <!-- RemoteViewsService -->
-        <service android:name="com.adamdlewis.markdownwidget.MdRemoteViewsService"
+        <service android:name="com.adamdlewis.markdownviewer.MdRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-        <receiver android:name="com.adamdlewis.markdownwidget.UpdateReceiver" android:exported="false" />
+        <receiver android:name="com.adamdlewis.markdownviewer.UpdateReceiver" android:exported="false" />
     </application>
 
 </manifest>
